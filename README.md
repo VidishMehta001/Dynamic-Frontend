@@ -30,7 +30,7 @@ Our goal is to perform mini A/B experimentations on UI that learns with each ite
 - Explore gamification in UI/UX changes for driving user retention
 
 # 🚀 Go Live!
-- Deployed at [Link][https://dynamic-frontend-pysrry2xw-vidish-mehtas-projects.vercel.app/]
+- Deployed at [Link](https://dynamic-frontend-pysrry2xw-vidish-mehtas-projects.vercel.app/)
 - Please note LLM functionality is diabled currently to save cost💰 but am happy to discuss if you found this project interesting. 
 
 📬 Contact
