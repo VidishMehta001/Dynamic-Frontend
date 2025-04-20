@@ -139,7 +139,78 @@ export default function Feedback() {
         
 
       )
-}
+    }
+
+//     return (
+//         <div className="min-h-screen bg-white flex flex-col items-center pt-6 pb-6 px-6" style={{backgroundColor: '#f0f0f0'}}>
+//         <motion.div
+//         initial={{ y: 0 }}
+//         animate={{ y: [0, -10, 0] }}
+//         transition={{ duration: 2, ease: 'easeOut' }}
+//         className="text-5xl mb-4"
+//         >
+//         💬
+//         </motion.div>
+//         <motion.h2
+//         initial={{ opacity: 0, y: -20 }}
+//         animate={{ opacity: 1, y: 0 }}
+//         transition={{ duration: 0.6, ease: 'easeOut' }}
+//         className="text-3xl font-bold text-indigo-700 mb-6 capitalize"
+//         >
+//         Feedback for {courseId.replace('-', ' ')}
+//         </motion.h2>
+  
+//         <div className="space-y-6 w-full max-w-md">
+//           <div>
+//             <label className="block text-lg font-medium text-gray-700 mb-2">Clarity (0–5):</label>
+//             <input
+//               type="range"
+//               min="0"
+//               max="5"
+//               value={clarity}
+//               onChange={(e) => setClarity(Number(e.target.value))}
+//               className="w-full"
+//             />
+//             <p className="text-sm text-gray-500 mt-1">Your rating: {clarity}</p>
+//           </div>
+  
+//           <div>
+//             <label className="block text-lg font-medium text-gray-700 mb-2">Engagement (0–5):</label>
+//             <input
+//               type="range"
+//               min="0"
+//               max="5"
+//               value={engagement}
+//               onChange={(e) => setEngagement(Number(e.target.value))}
+//               className="w-full"
+//             />
+//             <p className="text-sm text-gray-500 mt-1">Your rating: {engagement}</p>
+//           </div>
+        
+//         <div>
+//             <label className="block text-lg font-medium text-gray-700 mb-2">
+//                 Additional Comments:
+//             </label>
+//             <textarea
+//                 value={comments}
+//                 onChange={(e) => setComments(e.target.value)}
+//                 rows="4"
+//                 placeholder="What worked well? What can be improved?"
+//                 className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+//             />
+//         </div>
+
+//           <button
+//             onClick={handleSubmit}
+//             className="w-full mt-4 bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl font-semibold transition-all"
+//           >
+//             Submit Feedback
+//           </button>
+//         </div>
+//       </div>
+//     )
+//       // export default function Feedback() {
+// }
 
 // export default function Feedback() {
 //     const {courseId} = useParams()

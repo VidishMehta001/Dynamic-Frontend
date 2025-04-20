@@ -26,8 +26,6 @@ export default async function handler(req, res) {
     const posthogProjectApi = process.env.POSTHOG_PROJECT_API
     const posthogPersonId = process.env.POSTHOG_PERSON_ID
 
-
-
     // Get user session data from PostHog
     async function getPostHogSession() {
         const response = await fetch(`${posthogHost}/api/projects/${posthogProjectId}/session_recordings?person_uuid=${posthogPersonId}`, {
