@@ -1,0 +1,21 @@
+{
+  "name": "bots",
+  "version": "1.0.0",
+  "main": "agentRunner.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@faker-js/faker": "^9.7.0",
+    "@supabase/supabase-js": "^2.49.4",
+    "ai": "^4.3.9",
+    "dotenv": "^16.5.0",
+    "openai": "^4.95.1",
+    "posthog-node": "^4.12.0",
+    "zod": "^3.24.3"
+  }
+}
