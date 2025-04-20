@@ -49,6 +49,9 @@ export default function Feedback() {
         console.log(`Current view count: ${viewCount}`)
         if (viewCount >= 10) {
             // to run the LLM directly
+            await fetch('/api/trigger-llm', {
+                method: 'POST'
+              })
             localStorage.setItem(viewCountKey, 0)
         }
 
