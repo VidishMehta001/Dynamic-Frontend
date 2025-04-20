@@ -65,7 +65,7 @@ Interestingly, while performing these experiments, I had a strong tendency to ke
 - Explore gamification in UI/UX changes for driving user retention
 
 # 🚀 Go Live!
-- Deployed at [Link](https://dynamic-frontend-pysrry2xw-vidish-mehtas-projects.vercel.app/)
+- Deployed in Vercel - [Link](https://dynamic-frontend-pysrry2xw-vidish-mehtas-projects.vercel.app/)
 - Please note Agentic/LLM functionality is disabled currently to save cost💰, but I am happy to discuss if you found this project interesting. 
 
 📬 Contact
