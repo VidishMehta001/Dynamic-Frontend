@@ -66,7 +66,7 @@ Interestingly, while performing these experiments, I had a strong tendency to ke
 
 # 🚀 Go Live!
 - Deployed at [Link](https://dynamic-frontend-pysrry2xw-vidish-mehtas-projects.vercel.app/)
-- Please note LLM functionality is disabled currently to save cost💰, but I am happy to discuss if you found this project interesting. 
+- Please note Agentic/LLM functionality is disabled currently to save cost💰, but I am happy to discuss if you found this project interesting. 
 
 📬 Contact
 - Built by [Vidish Mehta](mailto:vpm28@cornell.edu) as an exploration in adaptive, AI-driven UX design.
