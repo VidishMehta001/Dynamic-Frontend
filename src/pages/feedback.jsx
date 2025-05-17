@@ -50,7 +50,7 @@ export default function Feedback() {
           } 
           if (new_count >= 10) {
             // to run the LLM directly
-            await fetch('/api/trigger-llm', {
+            await fetch('/api/llm_trigger', {
                 method: 'POST'
               })
             localStorage.setItem(viewCountKey, 0)
