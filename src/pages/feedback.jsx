@@ -53,7 +53,7 @@ export default function Feedback() {
             await fetch('/api/llm_trigger', {
                 method: 'POST'
               })
-            localStorage.setItem(viewCountKey, 0)
+            // localStorage.setItem(viewCountKey, 0)
         }
 
         } else {
