@@ -1,5 +1,5 @@
 import {createClient} from '@supabase/supabase-js'
-import { PostHog } from 'posthog-node'
+// import { PostHog } from 'posthog-node'
 import OpenAI from 'openai'
 import dotenv from 'dotenv'
 

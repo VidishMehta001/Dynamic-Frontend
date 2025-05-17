@@ -21,11 +21,11 @@ export default function Feedback() {
       async function fetchVariant() {
         const { data, error } = await supabase
           .from('UI_Variant')
-          .select('Suggestions')
+          .select('Suggestions, variant_count')
           .eq('Person_id', PERSON_ID)
-          .order('created_at', { ascending: false }) 
+          .order('created_at', { ascending: false })
           .limit(1)
-    
+
         if (error) {
           console.error('Supabase fetch error:', error)
           return
@@ -34,26 +34,36 @@ export default function Feedback() {
         console.log('Supabase variant fetch:', data)
     
         if (data && data.length > 0) {
-          const cleanCode = extractCodeFromJSX(data[0].Suggestions)
+          const { Suggestions, variant_count } = data[0]
+          const cleanCode = extractCodeFromJSX(Suggestions)
           console.log('Clean code:', cleanCode)
           setVariantHTML(cleanCode)
-        } else {
-          console.warn('No variant found for this person ID.')
-        }
+          const new_count = (variant_count || 0) + 1
 
-        // Track view count in localStorage
-        const viewCountKey = `view_count_${PERSON_ID}`
-        const viewCount = parseInt(localStorage.getItem(viewCountKey) || '0', 10) + 1
-        localStorage.setItem(viewCountKey, viewCount)
+          const {error: updateError} = await supabase
+            .from('UI_Variant')
+            .update({'variant_count': new_count})
+            .eq('Person_id', PERSON_ID)
 
-        console.log(`Current view count: ${viewCount}`)
-        if (viewCount >= 10) {
+          if (updateError) {
+            console.log("Failed to update the new count!")
+          } 
+          if (new_count >= 10) {
             // to run the LLM directly
             await fetch('/api/trigger-llm', {
                 method: 'POST'
               })
             localStorage.setItem(viewCountKey, 0)
         }
+
+        } else {
+          console.warn('No variant found for this person ID.')
+        }
+
+        // // Track view count in localStorage
+        // const viewCountKey = `view_count_${PERSON_ID}`
+        // const viewCount = parseInt(localStorage.getItem(viewCountKey) || '0', 10) + 1
+        // localStorage.setItem(viewCountKey, viewCount)
 
       }
     
@@ -149,7 +159,7 @@ export default function Feedback() {
 //         transition={{ duration: 2, ease: 'easeOut' }}
 //         className="text-5xl mb-4"
 //         >
-//         💬
+//         
 //         </motion.div>
 //         <motion.h2
 //         initial={{ opacity: 0, y: -20 }}
@@ -249,7 +259,7 @@ export default function Feedback() {
 //     if (submitted) {
 //         return (
 //             <div className="min-h-screen flex items-center justify-center bg-green-50">
-//             <h2 className="text-2xl font-semibold text-green-700">✅ Thanks for your feedback!</h2>
+//             <h2 className="text-2xl font-semibold text-green-700"> Thanks for your feedback!</h2>
 //           </div>
 //         )
 //     }
@@ -262,7 +272,7 @@ export default function Feedback() {
 //         transition={{ duration: 2, ease: 'easeOut' }}
 //         className="text-5xl mb-4"
 //         >
-//         💬
+//         
 //         </motion.div>
 //         <motion.h2
 //         initial={{ opacity: 0, y: -20 }}
