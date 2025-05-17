@@ -12,19 +12,18 @@ const supabase = createClient(supabaseUrl, supabaseServiceRoleKey)
 const openai = new OpenAI({
     apiKey: openaiApiKey
 })
+const supabaseUrl = process.env.SUPABASE_URL
+const supabaseServiceRoleKey = process.env.SUPABASE_ANON_KEY
+const openaiApiKey = process.env.OPENAI_API_KEY
+const posthogHost = process.env.POSTHOG_HOST
+const posthogProjectId = process.env.POSTHOG_PROJECT_ID
+const posthogProjectApi = process.env.POSTHOG_PROJECT_API
+const posthogPersonId = process.env.POSTHOG_PERSON_ID
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' })
     }
-    
-    const supabaseUrl = process.env.SUPABASE_URL
-    const supabaseServiceRoleKey = process.env.SUPABASE_ANON_KEY
-    const openaiApiKey = process.env.OPENAI_API_KEY
-    const posthogHost = process.env.POSTHOG_HOST
-    const posthogProjectId = process.env.POSTHOG_PROJECT_ID
-    const posthogProjectApi = process.env.POSTHOG_PROJECT_API
-    const posthogPersonId = process.env.POSTHOG_PERSON_ID
 
     // Get user session data from PostHog
     async function getPostHogSession() {
@@ -99,6 +98,7 @@ export default async function handler(req, res) {
         {
             Person_id: posthogPersonId,
             Suggestions: suggestion,
+            variant_count: 0
         },
         ])
     
