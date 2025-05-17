@@ -36,9 +36,10 @@ export default function Feedback() {
         if (data && data.length > 0) {
           const { Suggestions, variant_count } = data[0]
           const cleanCode = extractCodeFromJSX(Suggestions)
-          console.log('Clean code:', cleanCode)
+          //console.log('Clean code:', cleanCode)
           setVariantHTML(cleanCode)
           const new_count = (variant_count || 0) + 1
+          console.log(new_count)
 
           const {error: updateError} = await supabase
             .from('UI_Variant')
@@ -146,8 +147,6 @@ export default function Feedback() {
             </button>
             </div>
         </div>
-        
-
       )
     }
 
