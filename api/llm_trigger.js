@@ -7,11 +7,6 @@ dotenv.config()
 
 //console.log('SUPABASE_URL:', process.env.SUPABASE_URL)
 //console.log('POSTHOG_API_KEY:', process.env.POSTHOG_API_KEY) For troubleshooting
-
-const supabase = createClient(supabaseUrl, supabaseServiceRoleKey)
-const openai = new OpenAI({
-    apiKey: openaiApiKey
-})
 const supabaseUrl = process.env.SUPABASE_URL
 const supabaseServiceRoleKey = process.env.SUPABASE_ANON_KEY
 const openaiApiKey = process.env.OPENAI_API_KEY
@@ -24,7 +19,11 @@ export default async function handler(req, res) {
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' })
     }
-
+    // Initialize supabase and openai
+    const supabase = createClient(supabaseUrl, supabaseServiceRoleKey)
+    const openai = new OpenAI({
+        apiKey: openaiApiKey
+    })
     // Get user session data from PostHog
     async function getPostHogSession() {
         const response = await fetch(`${posthogHost}/api/projects/${posthogProjectId}/session_recordings?person_uuid=${posthogPersonId}`, {
