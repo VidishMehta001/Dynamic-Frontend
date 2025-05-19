@@ -97,7 +97,6 @@ export default async function handler(req, res) {
         {
             Person_id: posthogPersonId,
             Suggestions: suggestion,
-            variant_count: 0
         },
         ])
     
@@ -108,13 +107,22 @@ export default async function handler(req, res) {
         }
     }
 
+    async function saveCountToSupabase(){
+        //reset count to 1
+        const new_count = 1
+        const { error } = await supabase.from('UI_Variant_Count').upsert(
+            { Person_id: PERSON_ID, Variant_count: new_count }, { onConflict: ['Person_id'] }
+        )
+    }
+
     // Run the function
     try {
         const sessions = await getPostHogSession()
         const summary = summarizeSession(sessions)
         const html = await suggestUIChanges(summary)
         await saveSuggestionToSupabase(html)
-
+        await saveCountToSupabase()
+        
         return res.status(200).json({ status: 'success', html })
 
     } catch (err) {
