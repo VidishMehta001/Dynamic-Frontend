@@ -15,13 +15,11 @@ export default function Feedback() {
     const [submitted, setSubmitted] = useState(false)
     const [comments, setComments] = useState('')
 
-    //console.log('PERSON_ID:', PERSON_ID)
-
     useEffect(() => {
       async function fetchVariant() {
         const { data, error } = await supabase
           .from('UI_Variant')
-          .select('Suggestions, variant_count')
+          .select('Suggestions')
           .eq('Person_id', PERSON_ID)
           .order('created_at', { ascending: false })
           .limit(1)
@@ -31,34 +29,55 @@ export default function Feedback() {
           return
         }
     
-        console.log('Supabase variant fetch:', data)
-    
         if (data && data.length > 0) {
-          const { Suggestions, variant_count } = data[0]
+          const { Suggestions } = data[0]
           const cleanCode = extractCodeFromJSX(Suggestions)
-          //console.log('Clean code:', cleanCode)
           setVariantHTML(cleanCode)
+        }
+        else {
+          await fetch('/api/llm_trigger', {
+            method: 'POST'
+          })
+        }
+
+        const { data:count, error:error2 } = await supabase
+        .from('UI_Variant_Count')
+        .select('Person_id, Variant_count')
+        .eq("Person_id", PERSON_ID)
+
+        console.log(count)
+
+        if (count && count.length > 0) {
+          const variant_count = count[0]['Variant_count']
+          console.log(variant_count)
           const new_count = (variant_count || 0) + 1
           console.log(new_count)
 
-          const {error: updateError} = await supabase
-            .from('UI_Variant')
-            .update({'variant_count': new_count})
-            .eq('Person_id', PERSON_ID)
-
-          if (updateError) {
-            console.log("Failed to update the new count!")
-          } 
           if (new_count >= 10) {
             // to run the LLM directly
             await fetch('/api/llm_trigger', {
                 method: 'POST'
-              })
-            // localStorage.setItem(viewCountKey, 0)
-        }
+            })
+          }
 
-        } else {
-          console.warn('No variant found for this person ID.')
+          console.log(new_count)
+
+          await supabase
+          .from('UI_Variant_Count')
+          .upsert({ Person_id: PERSON_ID, Variant_count: new_count }, { onConflict: ['Person_id'] })
+        }
+        else {
+          await supabase
+          .from('UI_Variant_Count')
+          .insert([
+            {"Person_id": PERSON_ID,
+              "Variant_count": 1
+            }
+          ])
+        }
+        
+        if (error2) {
+          console.log("Supabase fetch error:", error2)
         }
 
         // // Track view count in localStorage
